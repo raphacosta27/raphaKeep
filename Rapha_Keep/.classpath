@@ -14,5 +14,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/home/rapha/Documents/programs/apache-tomcat-9.0.0.M26/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/home/rapha/Downloads/java-json.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

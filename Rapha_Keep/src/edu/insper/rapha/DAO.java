@@ -73,12 +73,13 @@ public DAO() {
 		}
 	}
 	public void altera(Notas nota) {
+		System.out.println(nota.getTexto());
 		String sql = "UPDATE Notas SET " + "texto=? WHERE id=?";
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, nota.getTexto());
-			stmt.setInt(4, nota.getId());
+			stmt.setInt(2, nota.getId());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {

@@ -5,6 +5,8 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
@@ -18,24 +20,20 @@ public class Cria extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
-		out.println("<html><body>");
-		out.println("<form method='post'>");
-		out.println("texto: <input type='text' name='texto'><br>");;
-		out.println("</form>");
-		out.println("<body><html>");
+		
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("RECEBI POST AQUI cria");
 		DAO dao = new DAO();
 		Notas nota = new Notas();
 		
-		nota.setTexto(request.getParameter("texto"));
-		
-		dao.adiciona(nota);
-	
-		dao.close();
+		String output = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
 
+		nota.setTexto(output);
+		System.out.println(output);
+		dao.adiciona(nota);
+		dao.close();
 	}
 }

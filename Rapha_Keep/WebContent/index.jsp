@@ -21,8 +21,13 @@
 	<body>
 	<%@ page import="java.util.*, javax.servlet.*,edu.insper.rapha.*" %>
 	<!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   	<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+	<script
+    src="https://code.jquery.com/jquery-1.12.4.js"
+    integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+    crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/1.0.1/lodash.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 
 
@@ -53,21 +58,13 @@
                 <form method='post'>
 			    <input type='text' name='texto' id="texto">
 			    <label for ='texto'>Escreva uma nota</label>
+			    </div>
 			    <button type='submit' class="btn-floating btn-large waves-effect waves-light red" id="addButton" ><i class="material-icons">add</i></button>
-			    <% String text = request.getParameter("texto"); 
-			    if(text != ""){
-			    	Notas alo = new Notas();
-			    	alo.setTexto(text);
-					dao.adiciona(alo);
-					text = "";
-			    }
-				%>
-               
                 <!-- <textarea id="icon_prefix2" class="materialize-textarea" name = "texto"></textarea>
                 <label for="icon_prefix2">Escreva uma nota</label> -->
                 
                 
-            </div>
+            
 
             </div>
         </form>
@@ -76,7 +73,7 @@
     </div>
     
                 
-	<div class='row' id='notas'>
+	<div class='row' id='notas'>	
 	<% 
 	 List<Notas> notas = dao.getLista();
 	 for (Notas nota : notas ) {  
@@ -88,13 +85,13 @@
         <div class='card blue-grey darken-1'>
         <div class='card-content white-text'>
         <form>
-        <span class="card-title"><input type="text" name=<%=numero%> value = '<%=cardTitle%>' id="myField" readonly/></span>
+        <span class="card-title"><%=cardTitle%></span>
         </form>
         
         <form method="post">
         
         </form>
-            <p contentEditable><%=nota.getTexto()%></p>
+            <p contentEditable class='cardContent' noteid=<%=nota.getId()%> ><%=nota.getTexto()%></p>
         </div>
         <div class='card-action'>
             <a href='#'>Editar</a>
