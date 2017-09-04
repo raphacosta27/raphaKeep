@@ -5,11 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.servlet.*;
+
 
 public class DAO {
 	
@@ -31,12 +33,13 @@ public DAO() {
 		PreparedStatement stmt;
 		ResultSet rs;
 		try {
-			stmt = connection.prepareStatement("SELECT * FROM Notas");
+			stmt = connection.prepareStatement("SELECT * FROM Notas ORDER BY date DESC");
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				Notas nota = new Notas();
 				nota.setId(rs.getInt("id"));
 				nota.setTexto(rs.getString("texto"));
+				nota.setData(rs.getTimestamp("date"));
 				notas.add(nota);
 			}
 			rs.close();
@@ -60,11 +63,14 @@ public DAO() {
 	
 	public void adiciona(Notas nota) {
 		String sql = "INSERT INTO Notas" +
-		"(texto) values(?)";
+		"(texto, date) values(?, ?)";
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, nota.getTexto());
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			stmt.setObject(2, timestamp); 
+			System.out.println(timestamp);
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {

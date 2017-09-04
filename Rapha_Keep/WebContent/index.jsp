@@ -96,6 +96,7 @@
         <div class='card-action'>
             <a href='#'>Editar</a>
             <a href='#' class='rb' noteid=<%=nota.getId()%>>Remover</a>
+            <a href='#'><%=nota.getData()%></a>
 
         </div>
         </div>
