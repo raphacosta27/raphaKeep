@@ -1,10 +1,27 @@
-
+if(localStorage.getItem('user') == ''){
+	alert("Faça Log In");
+	window.location.replace("http://localhost:8080/Rapha_Keep/login.jsp");
+}
 $( document ).ready(function() {
     var addButton = document.getElementById("addButton");
     var editar = document.getElementById("editar");
     addButton.addEventListener("click", function(){
         addNote();
     });
+    
+//   $('#').append(""){
+//	   window.location = './login'
+//   }
+    
+    if (localStorage.getItem('user')){
+    	var user = localStorage.getItem('user')
+    }
+    
+    $('#logOut').click((e)=>{
+    	localStorage.setItem('user', '');
+    	window.location.replace("http://localhost:8080/Rapha_Keep/login.jsp");
+    }
+    )
     
     $("#addButton").click((e) => { 
     	console.log("Adicionando nota...")
@@ -29,6 +46,13 @@ $( document ).ready(function() {
     		})
     	});
     
+    $(".eb").click((e) => {
+    	$text = $(e.target).parent().parent().children("div.card-content.white-text").children("p.cardContent");
+//    	console.log($(e.target).parent().parent().children("div.card-content.white-text").children("p.cardContent"));
+//    	$text.focus().val().length;
+    	$text.focus();	
+    	});
+    
     var debounced_version = _.debounce(function(e){
     	editar(e);
     }, 2000)
@@ -37,7 +61,6 @@ $( document ).ready(function() {
     $(".cardContent").on('keydown', (e) => { 
     	debounced_version(e);
     })
-    
     var editar = (e) => {
 	    console.log("fim do timeout");
 		id = e.target.attributes.noteid;

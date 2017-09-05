@@ -50,6 +50,30 @@ public DAO() {
 		}
 		return notas;
 	}
+	
+	public List<Users> getUsers(){
+		
+		List<Users> users = new ArrayList<Users>();
+		PreparedStatement stmt;
+		ResultSet rs;
+		try {
+			stmt = connection.prepareStatement("SELECT * FROM Users");
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Users user = new Users();
+				user.setId(rs.getInt("id"));
+				user.setUser(rs.getString("user"));
+				user.setPassword(rs.getString("password"));
+				users.add(user);
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return users;
+	}
 
 	public void close() {
 		try {
@@ -60,6 +84,21 @@ public DAO() {
 		}
 	}
 	
+	public void singIn(Users user) {
+		String sql = "INSERT INTO Users" +
+		"(user, password) values(?, ?)";
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, user.getUser());
+			stmt.setString(2, user.getPassword()); 
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	public void adiciona(Notas nota) {
 		String sql = "INSERT INTO Notas" +
