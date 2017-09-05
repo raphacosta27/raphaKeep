@@ -40,6 +40,7 @@ public DAO() {
 				nota.setId(rs.getInt("id"));
 				nota.setTexto(rs.getString("texto"));
 				nota.setData(rs.getTimestamp("date"));
+				nota.setUser(rs.getString("user"));
 				notas.add(nota);
 			}
 			rs.close();
@@ -102,7 +103,7 @@ public DAO() {
 	
 	public void adiciona(Notas nota) {
 		String sql = "INSERT INTO Notas" +
-		"(texto, date) values(?, ?)";
+		"(texto, date, user) values(?, ?, ?)";
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
@@ -110,6 +111,7 @@ public DAO() {
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			stmt.setObject(2, timestamp); 
 			System.out.println(timestamp);
+			stmt.setString(3, nota.getUser());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {

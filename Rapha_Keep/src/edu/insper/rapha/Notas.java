@@ -9,6 +9,7 @@ public class Notas {
 	private Integer id;
 	private String texto;
 	private Timestamp timestamp;
+	private String user;
 	public Integer getId() {
 		return this.id;
 	}
@@ -27,5 +28,11 @@ public class Notas {
 	}
 	public void setData(Timestamp timestamp) {
 		this.timestamp = timestamp;
+	}
+	public String getUser() {
+		return this.user;
+	}
+	public void setUser(String user) {
+		this.user = user;
 	}
 }

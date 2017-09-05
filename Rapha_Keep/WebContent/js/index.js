@@ -3,6 +3,7 @@ if(localStorage.getItem('user') == ''){
 	window.location.replace("http://localhost:8080/Rapha_Keep/login.jsp");
 }
 $( document ).ready(function() {
+	
     var addButton = document.getElementById("addButton");
     var editar = document.getElementById("editar");
     addButton.addEventListener("click", function(){
@@ -25,13 +26,17 @@ $( document ).ready(function() {
     
     $("#addButton").click((e) => { 
     	console.log("Adicionando nota...")
+    	console.log(localStorage.user)
+    	texto  = $('#texto').val();
+		json = {"user": localStorage.user, "texto": texto};
     	fetch('./cria', {
     		method: 'POST',
-    		body : $("#texto").val()
+    		body : JSON.stringify(json)
     	}).then ((response) => {
-    		$('#notas').load(document.URL +  ' #notas');
     		/*$("#notas").load($("#notas"))*/
     		})
+//    	$('#texto').val("");
+    	location.reload();
     	});
     
     $(".rb").click((e) => { 
@@ -42,6 +47,7 @@ $( document ).ready(function() {
     	}).then ((response) => {
     		$(e.target).parent().parent().remove();
     		console.log($(e.target).parent().parent().parent());
+    		location.reload();
  /*   		$('#notas').load(document.URL +  ' #notas');*/
     		})
     	});

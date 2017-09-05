@@ -1,17 +1,31 @@
 $(document).ready(() => {
 	
 	$('#signUp').click((e) =>{
-		if ($('#signUpPass').val() == $('#confirmPass').val()){
-			newUser  = $('#signUpUser').val();
-			newPass = $('#signUpPass').val();
-			newJson = {"user": newUser, "pass": newPass}
-			fetch("./singIn",{
-				method: "POST",
-				body: JSON.stringify(newJson)
-			}).then((response)=>{
-				
-			})
-		}	
+		if($('#signUpUser').val() != ""){
+			if($('#signUpPass').val() != ""){
+				if ($('#signUpPass').val() == $('#confirmPass').val()){
+					newUser  = $('#signUpUser').val();
+					newPass = $('#signUpPass').val();
+					newJson = {"user": newUser, "pass": newPass}
+					fetch("./singIn",{
+						method: "POST",
+						body: JSON.stringify(newJson)
+					}).then((response)=>{
+						
+					})
+					location.reload();	
+				}
+				else{
+					alert("As senhas não conferem");
+				}
+			}
+			else{
+				alert("A senha não pode ser vazia");
+			}
+		}
+		else{
+			alert("Usuario vazio");
+		}
 	})
 	
 	
